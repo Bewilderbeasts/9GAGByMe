@@ -26,13 +26,14 @@ namespace FunnyImages.Domain
 
         }
 
-        public Image(Guid id, Guid userId, string title, string description, string filename, IFormFile imageFile)
+        public Image(Guid id, string title, string description, IFormFile imageFile, User user)
         {
             Id = id;
-            UserId = userId;
+            UserId = user.Id;
             Title = title.ToLowerInvariant();
             Description = description.ToLowerInvariant();
-            Filename = filename;
+            Rating = 0;
+            Filename = imageFile.FileName;
             ImageFile = imageFile;
             CreatedAt = DateTime.UtcNow;
         }

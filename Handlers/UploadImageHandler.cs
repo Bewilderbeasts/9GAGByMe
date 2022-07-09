@@ -15,7 +15,9 @@ namespace FunnyImages.Handlers
             _imageService = imageService;
         }
         public async Task HandleAsync(UploadImage command)
-            => await _imageService.UploadAsync(Guid.NewGuid(), command.UserId ,command.Title, command.Description, command.ImageFile);
-        
+            => await _imageService.UploadAsync(Guid.NewGuid(), command.UserId, command.Title, command.Description, command.ImageFile);
+
+        // Task UploadAsync(Guid id, Guid userId, string title, string description, IFormFile imageFile);
+
     }
 }

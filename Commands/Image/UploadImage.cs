@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace FunnyImages.Commands.Image
 {
-    public class UploadImage : ICommand
+    public class UploadImage : AuthenticatedCommandBase
     {
         public Guid Id { get; protected set; }
-        public Guid UserId { get; protected set; }
         public string Filename { get; set; }
         public string Filetype { get; set; }
         public int Rating { get; protected set; }

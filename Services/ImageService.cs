@@ -9,16 +9,20 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FunnyImages.Extensions;
 
 namespace FunnyImages.Services
 {
     public class ImageService : IImageService
     {
         private readonly IImageRepository _imageRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public ImageService(IImageRepository imageRepository, IMapper mapper)
+
+        public ImageService(IImageRepository imageRepository, IUserRepository userRepository, IMapper mapper)
         {
             _imageRepository = imageRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
         public async Task<IEnumerable<ImageDto>> GetAllAsync()
@@ -47,12 +51,15 @@ namespace FunnyImages.Services
 
         public async Task UploadAsync(Guid id, Guid userId, string title, string description, IFormFile imageFile)
         {
+            var user = await _userRepository.GetOrFailAsync(userId);
             var image = await _imageRepository.GetAsync(title);
             if (image != null)
             {
                 throw new Exception("There is an image with same title");
             }
-            image = new Image(id, userId, title, description, imageFile.FileName.ToString(), imageFile);
+            //public Image(Guid id, string title, string description, IFormFile imageFile, User user)
+            image = new Image(id, title, description, imageFile, user);
+
             await _imageRepository.AddAsync(image);
         }
     }

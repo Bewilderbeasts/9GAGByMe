@@ -25,6 +25,10 @@ namespace FunnyImages.IoC.Modules
                     .As<IImageRepository>()
                     .SingleInstance();
 
+            builder.RegisterType<CommentRepository>()
+                   .As<IImageRepository>()
+                   .SingleInstance();
+
             builder.RegisterType<UserRepository>()
                     .As<IUserRepository>()
                     .SingleInstance();

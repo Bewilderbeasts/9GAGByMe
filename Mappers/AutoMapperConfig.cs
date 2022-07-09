@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FunnyImages.Domain;
 using FunnyImages.DTO;
 using FunnyImages.Settings;
 using System;
@@ -14,6 +15,9 @@ namespace FunnyImages.Mappers
            => new MapperConfiguration(cfg =>
            {
                cfg.CreateMap<JwtSettings, JwtDto>();
+               cfg.CreateMap<User, UserDto>();
+               cfg.CreateMap<Image, ImageDto>();
+               cfg.CreateMap<Comment, CommentDto>();
            })
             .CreateMapper();
     }
