@@ -14,7 +14,7 @@ namespace FunnyImages.Handlers
         {
             _commentService = commentService;
         }
-        public Task HandleAsync(CreateComment command)
-                => _commentService.AddAsync(Guid.NewGuid(), command.UserId, command.ImageId, command.Content);
+        public async Task HandleAsync(CreateComment command)
+                => await _commentService.AddAsync(Guid.NewGuid(), command.UserId, command.ImageId, command.Content);
     }
 }

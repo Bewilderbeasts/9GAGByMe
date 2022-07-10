@@ -53,17 +53,10 @@ namespace FunnyImages.Controllers
             return Json(image);
         }
 
-        //// POST api/<ImagesController>
-        //[HttpPost]
-        //public async Task<IActionResult> Post([FromBody] UploadImage command)
-        //{
-        //    await DispatchAsync(command);
-
-        //    return Created($"images/{command.UserId}", null);
-        //}
         [HttpPost]
-        public async Task<string> UploadImage([FromForm] UploadImage image)
+        public async Task<IActionResult> UploadImage([FromForm] UploadImage image)
         {
+            
             try
             {
                 if (image.ImageFile.Length > 0)
@@ -77,16 +70,16 @@ namespace FunnyImages.Controllers
                     {
                         image.ImageFile.CopyTo(fileStream);
                         fileStream.Flush();
-                        return "Created";
+                        return Created($"images/{image.Title}", null);
                     }
 
                 }
-                else { return "Failed"; }
+                else { throw new Exception("Couldn't create a new image"); }
             }
             catch (Exception ex)
             {
 
-                return ex.Message;
+                throw new Exception(ex.Message);
             }
         }
 

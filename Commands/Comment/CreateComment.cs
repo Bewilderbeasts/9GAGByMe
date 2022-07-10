@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace FunnyImages.Commands.Comment
 {
-    public class CreateComment : ICommand
+    public class CreateComment : AuthenticatedCommandBase
     {
-        public Guid Id { get; protected set; }
-        public Guid ImageId { get; protected set; }
-        public Guid UserId { get; protected set; }
+        public Guid Id { get;  set; }
+        public Guid ImageId { get;  set; }
         public string Content { get; set; }
     }
 }

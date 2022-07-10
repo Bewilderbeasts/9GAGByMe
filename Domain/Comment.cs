@@ -26,7 +26,11 @@ namespace FunnyImages.Domain
         {
             if ((string.IsNullOrWhiteSpace(content)))
             {
-                throw new Exception("Content cannot be empty!");
+                throw new Exception("Comment cannot be empty!");
+            }
+            else if (content.Length >= 240)
+            {
+                throw new Exception("Comment cannot be longer than 240 characters!");
             }
             Content = content;
             UpdatedAt = DateTime.UtcNow;
