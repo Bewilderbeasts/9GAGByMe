@@ -17,13 +17,16 @@ namespace FunnyImages.Services
     {
         private readonly IImageRepository _imageRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IVoteRepository _voteRepository;
         private readonly IMapper _mapper;
 
-        public ImageService(IImageRepository imageRepository, IUserRepository userRepository, IMapper mapper)
+        public ImageService(IImageRepository imageRepository, IUserRepository userRepository,
+            IVoteRepository voteRepository, IMapper mapper)
         {
             _imageRepository = imageRepository;
             _userRepository = userRepository;
             _mapper = mapper;
+            _voteRepository = voteRepository;
         }
         public async Task<IEnumerable<ImageDto>> GetAllAsync()
         {
@@ -62,5 +65,38 @@ namespace FunnyImages.Services
 
             await _imageRepository.AddAsync(image);
         }
+
+        public async Task VoteAsync(Guid id, Guid imageId, Guid userId, int vote)
+        {
+            var user = await _userRepository.GetOrFailAsync(userId);
+            var image = await _imageRepository.GetAsync(imageId);
+            var oldVote = await _voteRepository.GetAsync(imageId, userId);
+            if (oldVote != null)
+            {
+                await _voteRepository.ChangeVoteAsync(imageId, userId, vote);
+                if (vote == 1)
+                {
+                    image.Rating += 1;
+                }
+                else { image.Rating -= 1; };
+
+                //zapisanie zmian w DB
+                //await _imageRepository.SaveChanges();
+                 
+            } else { 
+            var newVote = new Vote(id, imageId, userId, vote);
+            await _voteRepository.AddAsync(newVote);
+            if (vote == 1)
+            {
+                image.Rating += 1;
+            } else { image.Rating -= 1; };
+
+                //zapisanie zmian w DB
+                //await _imageRepository.SaveChanges();
+            }
+            await Task.CompletedTask;
+        }
+
+
     }
 }

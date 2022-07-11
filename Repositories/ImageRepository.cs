@@ -33,6 +33,7 @@ namespace FunnyImages.Repositories
 
         public async Task<Image> GetAsync(string title)
                 => await Task.FromResult(_images.SingleOrDefault(x => x.Title == title));
+
     }
 
 }

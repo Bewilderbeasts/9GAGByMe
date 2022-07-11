@@ -14,5 +14,6 @@ namespace FunnyImages.Services
         Task<ImageDto> GetAsync(Guid imageId);
         Task<ImageDto> GetAsync(string title);
         Task<IEnumerable<ImageDto>> GetAllAsync();
+        Task VoteAsync(Guid id, Guid imageid, Guid userId, int vote);
     }
 }

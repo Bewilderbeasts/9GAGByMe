@@ -12,8 +12,8 @@ namespace FunnyImages.Domain
         public Guid UserId { get; protected set; }
         public string Filename { get; set; }
         public string Filetype { get; set; }
-       // public string Path { get; protected set; }
-        public int Rating { get; protected set; }
+        // public string Path { get; protected set; }
+        public int Rating { get; set; } = 0;
         public string Title { get; protected set; }
         public string Description { get; protected set; }
         public IFormFile ImageFile { get; set; }
