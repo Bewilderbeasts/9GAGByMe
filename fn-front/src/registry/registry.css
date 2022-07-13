@@ -1,0 +1,86 @@
+label {
+    font-family: 'Fira Sans Extra Condensed', sans-serif;
+    font-size: 30px;
+    color: white;
+}
+
+
+body {
+    --tw-bg-opacity: 1;
+    background-color: rgb(34 34 34/var(--tw-bg-opacity));
+}
+
+.form {
+    display: flex;
+    height: 100vh;
+
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.leftside_content {
+    width: 55%;
+    background-image: linear-gradient(to bottom, rgba(45, 68, 206, 0.52), rgba(117, 19, 93, 0.73)), url('../../public/assets/dogewallpaper.jpg');
+    background-size: cover;
+    font-family: 'Fira Sans Extra Condensed', sans-serif;
+    font-size: 60px;
+    color: white;
+    /*background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    opacity: 70%;
+    --tw-gradient-from: #3bd0ef;
+    --tw-gradient-stops: var(--tw-gradient-from),var(--tw-gradient-to,rgba(239,59,79,0));
+    --tw-gradient-to: #ea18f9;*/
+}
+
+
+.form-body {
+    width: 45%;
+
+}
+.input-body {
+    margin-top: 35%;
+    padding-left: 15%;
+}
+span {
+    margin-top: 35%;
+    padding-left: 33%;
+    color: white;
+}
+
+.register {
+    margin-top: 1%;
+    padding-left: 15%;
+}
+.textonsite {
+    margin-top: 35%;
+    padding-left: 15%;
+
+}
+
+input[type=email], input[type=password] {
+    width: 45%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 0.3rem;
+}
+
+.btn {
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #3bd0ef;
+    --tw-gradient-stops: var(--tw-gradient-from),var(--tw-gradient-to,rgba(239,59,79,0));
+    --tw-gradient-to: #ea18f9;
+    border-radius: 0.3rem;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    text-decoration: none;
+    font-size: 15px;
+}

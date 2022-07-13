@@ -68,7 +68,7 @@ namespace FunnyImages.Services
 
         public async Task VoteAsync(Guid id, Guid imageId, Guid userId, int vote)
         {
-            var user = await _userRepository.GetOrFailAsync(userId);
+            //var user = await _userRepository.GetOrFailAsync(userId);
             var image = await _imageRepository.GetAsync(imageId);
             var oldVote = await _voteRepository.GetAsync(imageId, userId);
             if (oldVote != null)
