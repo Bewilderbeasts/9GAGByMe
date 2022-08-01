@@ -16,6 +16,6 @@ namespace FunnyImages.Extensions
             => cache.Get<JwtDto>(GetJwtKey(tokenId));
 
         private static string GetJwtKey(Guid tokenId)
-            => $"jwt-{tokenId}";
+              => $"{tokenId}-jwt";
     }
 }

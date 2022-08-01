@@ -38,14 +38,14 @@ namespace FunnyImages.Services
 
             var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_jwtsettings.IssuerSigningKey ??
+                Encoding.UTF8.GetBytes(_jwtsettings.Key ??
                                        throw new InvalidOperationException("IssuerSigningKey is not set"))
             ),
             SecurityAlgorithms.HmacSha256);
 
 
             var jwt = new JwtSecurityToken(
-            issuer: _jwtsettings.ValidIssuer,
+            issuer: _jwtsettings.Issuer,
             claims: claims,
             notBefore: now.DateTime,
             expires: expires.DateTime,

@@ -3,6 +3,7 @@ using FunnyImages.Commands.User;
 using FunnyImages.Domain;
 using FunnyImages.Repositories;
 using FunnyImages.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace FunnyImages.Controllers
             return Json(user);
         }
 
-
+        [EnableCors("MyCorsPolicy")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateUser command)
         {

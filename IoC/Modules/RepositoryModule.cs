@@ -29,7 +29,11 @@ namespace FunnyImages.IoC.Modules
                    .As<ICommentRepository>()
                    .SingleInstance();
 
-            builder.RegisterType<UserRepository>()
+            builder.RegisterType<VoteRepository>()
+                   .As<IVoteRepository>()
+                   .SingleInstance();
+
+            builder.RegisterType<MongoUserRepository>()
                     .As<IUserRepository>()
                     .SingleInstance();
         }

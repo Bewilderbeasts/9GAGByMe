@@ -20,6 +20,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JavaScriptEngineSwitcher.ChakraCore;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+using React.AspNet;
+using Microsoft.AspNetCore.SpaServices;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using FunnyImages.Mongo;
 
 namespace FunnyImages
 {
@@ -35,7 +41,15 @@ namespace FunnyImages
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            MongoConfigurator.Initialize();
             services.Configure<JwtSettings>(_configuration.GetSection("JwtSettings"));
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "fn-front/build";
+            });
+
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -50,7 +64,7 @@ namespace FunnyImages
                     Description = "JWT Authorization header"
                 });
                 c.OperationFilter<SecurityRequirementsOperationFilter>(true, "bearerAuth");
-                
+
 
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
@@ -64,11 +78,26 @@ namespace FunnyImages
                     },
                 });
             });
-            services.AddCors();
+
+            ////////REACT STUFF
+            
+
+            services.AddCors(options =>
+            {
+                var frontURL = _configuration.GetValue<string>("react_url");
+
+                options.AddPolicy("MyCorsPolicy", builder =>
+                    builder.WithOrigins(frontURL)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
+            services.AddMemoryCache();
             services.AddHttpContextAccessor();
             //services.AddScoped<>();
             services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, HttpContextAccessor>();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
         }
 
@@ -81,10 +110,10 @@ namespace FunnyImages
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidIssuer = jwtSettings.ValidIssuer,
+                    ValidIssuer = jwtSettings.Issuer,
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(
-                            jwtSettings.IssuerSigningKey ??
+                            jwtSettings.Key ??
                             throw new InvalidOperationException("Issuer signing key is not set")
                         )
                     ),
@@ -107,12 +136,34 @@ namespace FunnyImages
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // tutaj uncomment
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
+
+            //tutaj REACTOWY STUFF
+
+            app.UseSpaStaticFiles();
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                //.AllowCredentials()
+            );
+
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "fn-front";
+
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseReactDevelopmentServer(npmScript: "start");
+            //    }
+            //});
+
+            
 
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.

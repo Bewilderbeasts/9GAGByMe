@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FunnyImages.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {
         public Task<User> GetAsync(Guid id);
         public Task<User> GetAsync(string email);

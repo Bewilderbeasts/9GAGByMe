@@ -18,15 +18,15 @@ namespace FunnyImages.Controllers
     public class ImagesController : ApiControllerBase
     {
 
-        private readonly IUserService _userService;
+        //private readonly IUserService _userService;
         private readonly IImageService _imageService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ImagesController(IImageService imageService, IUserService userService,
+        public ImagesController(IImageService imageService, /*, IUserService userService,*/
             IWebHostEnvironment webHostEnvironment, ICommandDispatcher commandDispatcher
         ) : base(commandDispatcher)
         {
-            _userService = userService;
+            //_userService = userService;
             _imageService = imageService;
             _webHostEnvironment = webHostEnvironment;
         }
@@ -54,9 +54,8 @@ namespace FunnyImages.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadImage([FromForm] UploadImage image)
-        {
-            
+        public async Task<IActionResult> UploadImage([FromForm] CreateImage image)
+        { 
             try
             {
                 if (image.ImageFile.Length > 0)
@@ -70,6 +69,8 @@ namespace FunnyImages.Controllers
                     {
                         image.ImageFile.CopyTo(fileStream);
                         fileStream.Flush();
+
+                        await DispatchAsync(image);
                         return Created($"images/{image.Title}", null);
                     }
 

@@ -12,6 +12,19 @@ class App extends Component {
         return (
             <Router>
                 <div>
+                    <div class="topnav" id="myTopnav">
+                        <a href="/" class="active">Home</a>
+                        <a href="#about">About</a>
+
+                        <a href="/register" class="split">Register</a>
+                        <a href="/Login" class="split">Login</a>
+
+                        <a href="javascript:void(0);" class="icon" onClick={myFunction}>
+                            <i class="fa fa-bars"></i>
+                        </a>
+
+                    </div>
+
                     <Routes>
                         <Route path='/register' element={<RegistrationForm />}/>
                         <Route path='/login' element={<LoginForm />} />
@@ -19,7 +32,18 @@ class App extends Component {
                     </Routes>
                 </div>
             </Router>
+
         );
+    }
+}
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    }
+
+    else {
+        x.className = "topnav";
     }
 }
 

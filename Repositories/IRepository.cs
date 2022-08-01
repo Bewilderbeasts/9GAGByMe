@@ -1,7 +1,7 @@
 ﻿
 namespace FunnyImages.Repositories
 {
-    internal interface IRepository
+    public interface IRepository
     {
     }
 }

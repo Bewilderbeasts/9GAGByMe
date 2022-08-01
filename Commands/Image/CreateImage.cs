@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FunnyImages.Commands.Image
 {
-    public class UploadImage : AuthenticatedCommandBase
+    public class CreateImage : AuthenticatedCommandBase
     {
         public Guid Id { get; protected set; }
         public string Filename { get; set; }

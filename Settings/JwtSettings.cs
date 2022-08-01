@@ -7,8 +7,8 @@ namespace FunnyImages.Settings
 {
     public class JwtSettings
     {
-        public string ValidIssuer { get; set; }
-        public string IssuerSigningKey { get; set; }
+        public string Issuer { get; set; }
+        public string Key { get; set; }
         public int ExpiryMinutes { get; set; }
     }
 }

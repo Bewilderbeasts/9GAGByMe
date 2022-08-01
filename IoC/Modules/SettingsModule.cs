@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using FunnyImages.Extensions;
+using FunnyImages.Mongo;
 using FunnyImages.Settings;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -20,6 +21,8 @@ namespace FunnyImages.IoC.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>())
+                .SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<MongoSettings>())
                 .SingleInstance();
 
         }

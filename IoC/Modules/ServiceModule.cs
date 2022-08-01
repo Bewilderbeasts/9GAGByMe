@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using FunnyImages.Handlers;
 using FunnyImages.Services;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,10 @@ namespace FunnyImages.IoC.Modules
 
             builder.RegisterType<JwtHandler>()
                     .As<IJwtHandler>()
+                    .SingleInstance();
+
+            builder.RegisterType<Handler>()
+                    .As<IHandler>()
                     .SingleInstance();
 
             //builder.RegisterType<DataInitializer>()
