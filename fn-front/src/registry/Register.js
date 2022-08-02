@@ -61,7 +61,7 @@ function RegistrationForm() {
                     
                     
                         <label className="form__label" htmlFor="password">Password </label>
-                        <input className="form__input" value={password} onChange={(e) => setPassword(e.target.value)}type="password" id="password" placeholder="Password" />
+                        <input className="form__input" value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" placeholder="Password" />
                  <button type="submit" class="btn">Register</button> 
                        
                     </form>
