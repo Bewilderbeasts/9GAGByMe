@@ -28,8 +28,8 @@ function LoginForm() {
             if (res.status === 200) {
                 setEmail("");
                 setMessage("Logged in successfully");
-                const token = resJson.token;
-                localStorage.setItem("jwt", token);
+                const token = resJson.token;              
+                sessionStorage.setItem("jwt", token);
                 invalidLogin = false;
                 navigate("/", { replace: true });
             } else {
