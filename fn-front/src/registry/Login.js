@@ -31,7 +31,7 @@ function LoginForm() {
                 const token = resJson.token;              
                 localStorage.setItem("jwt", token);
                 invalidLogin = false;
-                navigate("/", { replace: true });
+                navigate("/redirect", { replace: true });
             } else {
                 invalidLogin = true
             }

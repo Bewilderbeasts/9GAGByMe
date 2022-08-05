@@ -7,7 +7,7 @@ function WelcomeBack() {
             <div class="content" className="welcome-left">
                 <div className="foreground" >
                 <div className="returnmessage">
-                Welcome back!
+                STRONA GLOWNA
                 </div>
                 </div>
             </div>         

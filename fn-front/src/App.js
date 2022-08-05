@@ -5,6 +5,7 @@ import './App.css';
 import RegistrationForm from './registry/Register';
 import LoginForm from './registry/Login';
 import WelcomeBack from './pages/Main';
+import Redirecting from './pages/Redirect';
 import { useState, useEffect } from 'react';
 
 
@@ -48,6 +49,7 @@ class App extends Component {
                         <Route path='/register' element={<RegistrationForm />}/>
                         <Route path='/login' element={<LoginForm />} />
                         <Route path='/' element={<WelcomeBack />} />
+                        <Route path='/redirect' element={<Redirecting />} />
                     </Routes>
                 </div>
             </Router>
