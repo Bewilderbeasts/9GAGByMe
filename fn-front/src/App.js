@@ -5,37 +5,27 @@ import './App.css';
 import RegistrationForm from './registry/Register';
 import LoginForm from './registry/Login';
 import WelcomeBack from './pages/Main';
-import { useNavigate } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
 
 
 class App extends Component {
     
 
     render() {
-        var value;
-        function logOut(){
-            sessionStorage.removeItem("jwt");
+
+        function logOut() {
+            localStorage.removeItem("jwt");
         }
 
         function isLoggedIn() {
-            let tokenValue = sessionStorage.getItem("jwt");
-            
-            if (tokenValue != null) {
-                value = true;
-                console.log(value);
-            } else {
-                value = false;
-                console.log(value);
-            }      
+
+            if (localStorage.hasOwnProperty('jwt')) {
+                return true;
+            } else {   
+                return false;
+            }
         }
 
-        let button;
-        if (value) {
-            button = <a href="/login" class="split" onClick={logOut} >Logout</a>;
-        } else {
-            button = <><a href="/login" class="split">Login</a><a href="/register" class="split">Register</a></>;
-        }
 
         return (
             <Router>
@@ -43,21 +33,14 @@ class App extends Component {
                     <div class="topnav" id="myTopnav">
                         <a href="/" class="active">Home</a>
                         <a href="#about">About</a>
-                        { isLoggedIn}
-                        <a isLoggedIn={value} ></a>
-                        {button}
 
-                        {/*<div className="logout" >*/}
-                        {/*    { isLoggedIn ? (*/}
-                        {/*            <a href="/login" class="split" onClick={logOut} >Logout</a>*/}
-                        {/*    ) : (*/}
-                        {/*            <><a href="/login" class="split">Login</a></>*/}
-                        {/*    )}*/}
-                        {/*</div>*/}
+                        {isLoggedIn() ? (
+                        <a href="/login" class="split" onClick={logOut} >Logout</a>) : (
+                        <><a href="/login" class="split">Login</a><a href="/register" class="split">Register</a></>
+                        )}
 
                         <a href="javascript:void(0);" class="icon" onClick={myFunction}>
-                            <i class="fa fa-bars"></i>
-                        </a>
+                            <i class="fa fa-bars"></i> </a>
 
                     </div>
 

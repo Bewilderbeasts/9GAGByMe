@@ -29,7 +29,7 @@ function LoginForm() {
                 setEmail("");
                 setMessage("Logged in successfully");
                 const token = resJson.token;              
-                sessionStorage.setItem("jwt", token);
+                localStorage.setItem("jwt", token);
                 invalidLogin = false;
                 navigate("/", { replace: true });
             } else {
