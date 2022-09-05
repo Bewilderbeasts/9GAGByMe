@@ -21,10 +21,6 @@ namespace FunnyImages.IoC.Modules
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<ImageRepository>()
-                    .As<IImageRepository>()
-                    .SingleInstance();
-
             builder.RegisterType<CommentRepository>()
                    .As<ICommentRepository>()
                    .SingleInstance();
@@ -36,6 +32,10 @@ namespace FunnyImages.IoC.Modules
             builder.RegisterType<MongoUserRepository>()
                     .As<IUserRepository>()
                     .SingleInstance();
+
+            builder.RegisterType<ImageRepository>()
+                   .As<IImageRepository>()
+                   .SingleInstance();
         }
     }
 }

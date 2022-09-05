@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import './App.css';
 import RegistrationForm from './registry/Register';
 import LoginForm from './registry/Login';
+import UploadImageForm from './images/Upload';
 import WelcomeBack from './pages/Main';
 import Redirecting from './pages/Redirect';
 import { useState, useEffect } from 'react';
@@ -34,6 +35,8 @@ class App extends Component {
                     <div class="topnav" id="myTopnav">
                         <a href="/" class="active">Home</a>
                         <a href="#about">About</a>
+                        <a href="/images/upload">Upload</a>
+
 
                         {isLoggedIn() ? (
                         <a href="/login" class="split" onClick={logOut} >Logout</a>) : (
@@ -48,6 +51,7 @@ class App extends Component {
                     <Routes>
                         <Route path='/register' element={<RegistrationForm />}/>
                         <Route path='/login' element={<LoginForm />} />
+                        <Route path='/images/upload' element={<UploadImageForm />} />
                         <Route path='/' element={<WelcomeBack />} />
                         <Route path='/redirect' element={<Redirecting />} />
                     </Routes>

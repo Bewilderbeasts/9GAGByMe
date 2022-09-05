@@ -33,6 +33,7 @@ namespace FunnyImages.Domain
             Description = description.ToLowerInvariant();
             Rating = 0;
             Filename = imageFile.FileName;
+            Filetype = imageFile.ContentType;
             ImageFile = imageFile;
             CreatedAt = DateTime.UtcNow;
         }

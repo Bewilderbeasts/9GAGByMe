@@ -34,11 +34,6 @@ namespace FunnyImages.IoC.Modules
                     .As<IHandler>()
                     .SingleInstance();
 
-            //builder.RegisterType<DataInitializer>()
-            //        .As<IDataInitializer>()
-            //        .SingleInstance();
-
-
         }
     }
 }

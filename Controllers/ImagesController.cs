@@ -18,15 +18,13 @@ namespace FunnyImages.Controllers
     public class ImagesController : ApiControllerBase
     {
 
-        //private readonly IUserService _userService;
         private readonly IImageService _imageService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ImagesController(IImageService imageService, /*, IUserService userService,*/
+        public ImagesController(IImageService imageService,
             IWebHostEnvironment webHostEnvironment, ICommandDispatcher commandDispatcher
         ) : base(commandDispatcher)
         {
-            //_userService = userService;
             _imageService = imageService;
             _webHostEnvironment = webHostEnvironment;
         }
@@ -54,34 +52,39 @@ namespace FunnyImages.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadImage([FromForm] CreateImage image)
-        { 
-            try
-            {
-                if (image.ImageFile.Length > 0)
-                {
-                    string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    using (FileStream fileStream = System.IO.File.Create(path + image.ImageFile.FileName))
-                    {
-                        image.ImageFile.CopyTo(fileStream);
-                        fileStream.Flush();
+        public async Task<IActionResult> UploadImage([FromForm] CreateImage command)
+        {
 
-                        await DispatchAsync(image);
-                        return Created($"images/{image.Title}", null);
-                    }
 
-                }
-                else { throw new Exception("Couldn't create a new image"); }
-            }
-            catch (Exception ex)
-            {
+            await _imageService.UploadAsync(Guid.NewGuid(), command.UserId,
+                        command.Title, command.Description, command.ImageFile);
+            return Created($"images/{command.Title}", null);
+            //try
+            //{
+            //    if (command.ImageFile.Length > 0)
+            //    {
+            //        string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
+            //        if (!Directory.Exists(path))
+            //        {
+            //            Directory.CreateDirectory(path);
+            //        }
+            //        using (FileStream fileStream = System.IO.File.Create(path + command.ImageFile.FileName))
+            //        {
+            //            command.ImageFile.CopyTo(fileStream);
+            //            fileStream.Flush();
 
-                throw new Exception(ex.Message);
-            }
+            //            await DispatchAsync(command);
+            //            return Created($"images/{command.Title}", null);
+            //        }
+
+            //    }
+            //    else { throw new Exception("Couldn't create a new image"); }
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    throw new Exception(ex.Message);
+            //}
         }
 
         //[HttpPost]
